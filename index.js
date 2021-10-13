@@ -35,13 +35,14 @@ passport.use(new Strategy(AUTH_OPTIONS, verifyCallback));
 // Saving the session to the cookie
 // done is a callback that helps us make asynchronous calls. Just like next()
 passport.serializeUser((user, done) => {
-  done(null, user); // user is the value of the cookie
+  console.log("Serialise user!");
+  done(null, user.id); // user is the value of the cookie
 });
 
 // Loading the session from the cookie
 // Returns the data that'll be made available in req.user
-passport.deserializeUser((obj, done) => {
-  done(null, obj); // null because there are no errors. The second argument is the result that should go in req.user
+passport.deserializeUser((id, done) => {
+  done(null, id); // null because there are no errors. The second argument is the result that should go in req.user
 });
 
 const app = express();
