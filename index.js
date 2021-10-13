@@ -96,7 +96,12 @@ app.get(
 
 app.get("failure", (req, res) => res.send("Fail to log in"));
 
-app.get("/auth/logout", (req, res) => {});
+app.get("/auth/logout", (req, res) => {
+  req.logout(); // part of passport. Removs req.user and clears any logged in session
+  return res.redirect("/");
+  // req.logout does not empty the session. It creates a new one which is encoded using base 64. The new session contains:
+  // {"passport":{}}
+});
 
 app.get("/secret", checkLoggedIn, (req, res) => {
   res.send("Secret");
